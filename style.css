@@ -1,0 +1,29 @@
+body{
+  background: url(img/fon.jpg);
+  background-size: 100%;
+  color: #999999;
+}
+a{
+  text-decoration:none;
+  font-size:15px;
+  font-family:Thahoma;
+  color: white;
+}
+.button_to_profile {
+  background: linear-gradient(to top, black, cyan);
+  border-radius: 50%;
+  background: url(img/profile.jpg);
+  height: 30px;
+  width: 34px;
+  border: #black 1px solid;
+  margin-left: 95%;
+  padding: 0;
+}
+h1{
+  margin: 0;
+  padding: 0;
+}
+h3{
+  margin: 0;
+  padding: 0;
+}
