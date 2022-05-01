@@ -4,8 +4,19 @@
   <meta charset="utf-8" />
   <title>Профиль</title>
   <link rel="stylesheet" href="css/framework.min.css">
-  <link rel="stylesheet" href="css/style_games.css">
+  <link rel="stylesheet" href="css/style_profile.css">
 </head>
 <body>
+  <a href="first.html"><h3 style="margin-left: 0%;"> &lt; Главное меню</h3></a>
+  <h1>Ваш профиль</h1>
+  <h3>Ник: {{nickname}}</h3>
+  <h3>Почта: {{mail}}</h3>
+  <h3>Пароль: {{password}}</h3>
+  <h3>О себе:</h3>
+  <textarea name="about" rows="8" cols="40">{{text}}</textarea>
+  <h3>Ваши игры:</h3>
+  <ul>
+    <li>{{игры, которые были скачены}}</li>
+  </ul>
 </body>
 </html>
