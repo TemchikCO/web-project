@@ -5,6 +5,11 @@
   <title>Профиль</title>
   <link rel="stylesheet" href="css/framework.min.css">
   <link rel="stylesheet" href="css/style_profile.css">
+  <script type="text/javascript">
+    function ex() {
+      alert('Изменения сохранены')
+    }
+  </script>
 </head>
 <body>
   <a href="first.html"><h3 style="margin-left: 0%;"> &lt; Главное меню</h3></a>
@@ -13,10 +18,13 @@
   <h3>Почта: {{mail}}</h3>
   <h3>Пароль: {{password}}</h3>
   <h3>О себе:</h3>
-  <textarea name="about" rows="8" cols="40">{{text}}</textarea>
+  <textarea name="about" rows="8" cols="40">{{text}}</textarea><br>
   <h3>Ваши игры:</h3>
   <ul>
     <li>{{игры, которые были скачены}}</li>
   </ul>
+  <button class="button_to_install" onclick="ex();">
+    <a title="Сохранить" >&emsp;&emsp;&emsp;Сохранить изменения&emsp;&emsp;&emsp;</a>
+  </button>
 </body>
 </html>
