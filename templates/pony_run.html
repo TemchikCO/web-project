@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Pony_Run</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/framework.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style_games.css') }}">
+</head>
+<body>
+  <div class="g">
+    <div class="g-row">
+      <div class="g-3">
+        <a href="main"><h3 style="margin-left: -60%;"> &lt; Главное меню</h3></a>
+      </div>
+      <div class="g-9">
+        <h1>Pony_Run</h1>
+      </div>
+    </div>
+  </div>
+  <div class="g">
+    <div class="g-row">
+      <div class="g-4">
+
+        <div id="carousel" class="carousel">
+         <button class="arrow prev">⇦</button>
+         <div class="gallery">
+           <ul>
+             <li><img src="{{ url_for('static', filename='css/img/pony_game_1.png') }}"></li>
+             <li><img src="{{ url_for('static', filename='css/img/pony_game_2.png') }}"></li>
+             <li><img src="{{ url_for('static', filename='css/img/pony_game_3.png') }}"></li>
+             <li><img src="{{ url_for('static', filename='css/img/pony_game.png') }}"></li>
+             <li><img src="{{ url_for('static', filename='css/img/pony_game_5.png') }}"></li>
+           </ul>
+         </div>
+         <button class="arrow next">⇨</button>
+       </div>
+
+          <button class="button_to_install">
+            <a title="Скачать" href="{{ url_for('static', filename='zip_files/zip_files/pony_run.zip') }}" download>&emsp;&emsp;&emsp;&emsp;Скачать&emsp;&emsp;&emsp;&emsp;</a>
+          </button>
+      </div>
+      <div class="g-4">
+      <p style="margin-top: 15px;">Pony_Run - игра жанра раннер, которая поможет вам скоротать несколько часов времени в дороге. Игра с захватывающим и динамичным геймплеем не позволит вам заскучать.</p>
+      </div>
+      <div class="g-4">
+        <h2>Другие игры:</h2>
+        <p><a title="profile" href="politopy"><img style="margin-left: 35%;" src="{{ url_for('static', filename='css/img/politopy.png') }}" alt="Politopy"></a></p>
+        <a title="profile" href="politopy"><h3>Politopy</h3></a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+   let i = 1;
+   for(let li of carousel.querySelectorAll('li')) {
+     li.style.position = 'relative';
+     li.insertAdjacentHTML('beforeend', `<span style="position:absolute;left:0;top:0">${i}</span>`);
+     i++;
+   }
+
+   let width = 365;
+   let count = 1;
+
+   let list = carousel.querySelector('ul');
+   let listElems = carousel.querySelectorAll('li');
+
+   let position = 0;
+
+   carousel.querySelector('.prev').onclick = function() {
+     position += width * count;
+     position = Math.min(position, 0)
+     list.style.marginLeft = position + 'px';
+   };
+
+   carousel.querySelector('.next').onclick = function() {
+     position -= width * count;
+     position = Math.max(position, -width * (listElems.length - count));
+     list.style.marginLeft = position + 'px';
+   };
+ </script>
+</body>
+</html>

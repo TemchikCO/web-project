@@ -1,0 +1,44 @@
+body{
+  background: url(img/fon.jpg);
+  background-size: 100%;
+  color: #999999;
+}
+a{
+  text-decoration:none;
+  font-size:15px;
+  font-family:Thahoma;
+  color: white;
+}
+.button_to_profile {
+  background: linear-gradient(to top, black, cyan);
+  border-radius: 50%;
+  background: url(img/profile.jpg);
+  height: 30px;
+  width: 34px;
+  border: #black 1px solid;
+  margin-left: 280%;
+  padding: 0;
+}
+h1{
+  margin-left: 39%;
+  padding: 0;
+  color: #999999;
+}
+h3{
+  margin: 0;
+  padding: 0;
+  color: #999999;
+}
+img{
+  border: 2px solid black;
+  border-radius: 30px;
+}
+h4{
+  margin-left: 35%;
+  padding: 0;
+  color: #999999;
+}
+h2{
+  padding: 0;
+  color: #999999;
+}

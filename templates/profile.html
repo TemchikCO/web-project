@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Профиль</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/framework.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style_profile.css') }}">
+  <script type="text/javascript">
+    function ex() {
+      alert('Изменения сохранены')
+    }
+  </script>
+</head>
+<body>
+  <a href="main"><h3 style="margin-left: 0%;"> &lt; Главное меню</h3></a>
+  <h1>Ваш профиль</h1>
+  <h3>Ник: {{ name }}</h3>
+  <h3>Почта: {{ email }}</h3>
+  <h3>О себе:</h3>
+  <textarea name="about" rows="8" cols="40" >{{ about }}</textarea><br>
+  <button class="button_to_install" onclick="ex();">
+    <a href="register" title="Сохранить" >&emsp;&emsp;&emsp;Изменить данные профиля&emsp;&emsp;&emsp;</a>
+  </button>
+</body>
+</html>
