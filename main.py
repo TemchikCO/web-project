@@ -5,7 +5,10 @@ from data import db_session
 from data.user import RegisterForm
 from data.users import User
 from data.LoginForm import LoginForm
+from data.CommentForm import CommentForm
 from flask_login import login_user, LoginManager, login_required, logout_user
+import sqlite3
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -13,6 +16,9 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 user = None
+
+
+names = []
 
 
 @login_manager.user_loader
@@ -30,10 +36,12 @@ def reqister():
                                    form=form,
                                    message="Пароли не совпадают")
         db_sess = db_session.create_session()
-        if db_sess.query(User).filter(User.email == form.email.data).first():
+        if db_sess.query(User).filter(User.email == form.email.data).first()\
+                or db_sess.query(User).filter(User.name == form.name.data).first():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
+
         user = User(
             name=form.name.data,
             email=form.email.data,
@@ -55,6 +63,12 @@ def login():
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
+            global names
+            conn = sqlite3.connect('db/users.db')
+            cursor = conn.cursor()
+            names = cursor.execute("""SELECT name FROM users""").fetchall()
+            conn.commit()
+            conn.close()
             return redirect("/main")
         return render_template('login.html',
                                message="Неправильный логин или пароль",
@@ -69,22 +83,68 @@ def index():
 
 @app.route('/pony_run')
 def pony_run():
-    return render_template('pony_run.html')
+    global names
+    comments = []
+    conn = sqlite3.connect('db/users.db')
+    cursor = conn.cursor()
+    comments1 = cursor.execute("""SELECT comments_pony_run FROM users""").fetchall()
+    conn.commit()
+    conn.close()
+    for i in comments1:
+        comments.append([*names[comments1.index(i)], *i])
+    return render_template('pony_run.html', comments=comments)
 
 
 @app.route('/politopy')
 def politopy():
-    return render_template('politopy.html')
+    global names
+    comments = []
+    conn = sqlite3.connect('db/users.db')
+    cursor = conn.cursor()
+    comments1 = cursor.execute("""SELECT comments_politopy FROM users""").fetchall()
+    for i in comments1:
+        comments.append([*names[comments1.index(i)], *i])
+    conn.commit()
+    conn.close()
+    return render_template('politopy.html', comments=comments)
 
 
 @app.route('/profile')
 def profile():
-    return render_template('profile.html', name=user.name, email=user.email, about=user.about)
+    return render_template('profile.html', name=user.name, email=user.email, about=user.about,
+                           pony_run_install=user.pony_run_install, politopy_install=user.politopy_install,
+                           comments_politopy=user.comments_politopy, comments_pony_run=user.comments_pony_run)
 
 
 @app.route('/main')
 def main_page():
     return render_template('first.html')
+
+
+@app.route('/comments_politopy', methods=['GET', 'POST'])
+def comment_page_politopy():
+    global user
+    form = CommentForm()
+    conn = sqlite3.connect('db/users.db')
+    cursor = conn.cursor()
+    sql_select_query = """UPDATE users SET comments_politopy = ? WHERE email = ?"""
+    cursor.execute(sql_select_query, (form.comments.data, user.email,))
+    conn.commit()
+    conn.close()
+    return render_template('comments.html', form=form)
+
+
+@app.route('/comments_pony_run', methods=['GET', 'POST'])
+def comments_pony_run():
+    global user
+    form = CommentForm()
+    conn = sqlite3.connect('db/users.db')
+    cursor = conn.cursor()
+    sql_select_query = """UPDATE users SET comments_pony_run = ? WHERE email = ?"""
+    cursor.execute(sql_select_query, (form.comments.data, user.email,))
+    conn.commit()
+    conn.close()
+    return render_template('comments.html', form=form)
 
 
 @app.route('/logout')
