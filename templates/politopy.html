@@ -5,6 +5,7 @@
   <title>Politopy</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/framework.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style_games.css') }}">
+
 </head>
 <body>
   <div class="g">
@@ -35,12 +36,16 @@
          <button class="arrow next">⇨</button>
        </div>
 
-          <button class="button_to_install">
+          <button class="button_to_install" onclick="href='main'">
             <a title="Скачать" href="{{ url_for('static', filename='zip_files/politopy.zip') }}" download>&emsp;&emsp;&emsp;&emsp;Скачать&emsp;&emsp;&emsp;&emsp;</a>
           </button>
       </div>
       <div class="g-4">
       <p style="margin-top: 15px;">Politopy - игра-стратегия, в который вы сможете сражаться со своими друзьями за звание самого крутого стратега. Иследуйте технологии, завоёвывайте города и убивайте своих соперников различными способами.</p>
+      <h3 style="margin-left: 0%; margin-top: 50px; max-width: 100%;">Оставьте свой комментарий:</h3>
+        <button class="button_to_install" style="font-size:16px; margin-left:10%;">
+          <a title="profile" href="comments_politopy" style="color: white">Оставить комментарий</a>
+        </button>
       </div>
       <div class="g-4">
         <h2>Другие игры:</h2>
@@ -48,6 +53,12 @@
         <a title="profile" href="pony_run"><h3>Pony Run</h3></a>
       </div>
     </div>
+    <h2 style="margin-left: 10%;">Комментарии по игре:</h2>
+      {% for i in comments%}
+      {% if i[1] %}
+        <h3 style="margin-left: 15%; color: white;">{{ i[0] }}:{{ i[1] }}</h3>
+      {% endif %}
+      {% endfor %}
   </div>
 
  <script>

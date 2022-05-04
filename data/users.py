@@ -21,3 +21,9 @@ class User(SqlAlchemyBase, SerializerMixin, UserMixin):
     email = sqlalchemy.Column(sqlalchemy.String,
                               index=True, unique=True, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    pony_run_install = sqlalchemy.Column(sqlalchemy.Integer,
+                                         nullable=True, default=0)
+    politopy_install = sqlalchemy.Column(sqlalchemy.Integer,
+                                         nullable=True, default=0)
+    comments_politopy = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    comments_pony_run = sqlalchemy.Column(sqlalchemy.String, nullable=True)

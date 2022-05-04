@@ -16,10 +16,11 @@
   <h1>Ваш профиль</h1>
   <h3>Ник: {{ name }}</h3>
   <h3>Почта: {{ email }}</h3>
+  <h3>установка Pony_Run: {{ pony_run_install }}</h3>
+  <h3>установка Politopy: {{ politopy_install }}</h3>
+  <h3>коментарий о Politopy: {{ comments_politopy }}</h3>
+  <h3>коментарий о Pony Run: {{ comments_pony_run }}</h3>
   <h3>О себе:</h3>
-  <textarea name="about" rows="8" cols="40" >{{ about }}</textarea><br>
-  <button class="button_to_install" onclick="ex();">
-    <a href="register" title="Сохранить" >&emsp;&emsp;&emsp;Изменить данные профиля&emsp;&emsp;&emsp;</a>
-  </button>
+  <textarea name="about" rows="8" cols="40" readonly>{{ about }}</textarea><br>
 </body>
 </html>
