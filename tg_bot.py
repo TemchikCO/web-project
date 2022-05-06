@@ -1,8 +1,6 @@
-import requests
-from flask import url_for
 from telegram import ReplyKeyboardMarkup
-from telegram.ext import Updater, MessageHandler, Filters
-from constants import *
+from telegram.ext import Updater
+from last_mission.constants import *
 from telegram.ext import CommandHandler
 
 markup_games = ReplyKeyboardMarkup([['/Politopy', '/Pony_Run']], one_time_keyboard=False)

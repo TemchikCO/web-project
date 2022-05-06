@@ -85,35 +85,65 @@ def index():
 def pony_run():
     global names
     comments = []
+    all_stars = []
+    stars_count = []
     conn = sqlite3.connect('db/users.db')
     cursor = conn.cursor()
     comments1 = cursor.execute("""SELECT comments_pony_run FROM users""").fetchall()
-    conn.commit()
-    conn.close()
+    stars = cursor.execute("""SELECT stars_pony_run FROM users""").fetchall()
+    for i in stars:
+        all_stars.append(*i)
+    for i in stars:
+        if i != (None,):
+            stars_count.append(*i)
     for i in comments1:
         comments.append([*names[comments1.index(i)], *i])
-    return render_template('pony_run.html', comments=comments)
+    if len(comments) > 10:
+        comments = comments[len(comments) - 10:]
+    conn.commit()
+    conn.close()
+    if len(stars_count) != 0:
+        star = sum(stars_count) / len(stars_count)
+        star = round(star, 1)
+    else:
+        star = '-'
+    return render_template('pony_run.html', comments=comments, stars=star, star_list=all_stars)
 
 
 @app.route('/politopy')
 def politopy():
     global names
     comments = []
+    all_stars = []
+    stars_count = []
     conn = sqlite3.connect('db/users.db')
     cursor = conn.cursor()
     comments1 = cursor.execute("""SELECT comments_politopy FROM users""").fetchall()
+    stars = cursor.execute("""SELECT stars_politopy FROM users""").fetchall()
+    for i in stars:
+        all_stars.append(*i)
+    for i in stars:
+        if i != (None,):
+            stars_count.append(*i)
     for i in comments1:
         comments.append([*names[comments1.index(i)], *i])
+    if len(comments) > 10:
+        comments = comments[len(comments) - 10:]
     conn.commit()
     conn.close()
-    return render_template('politopy.html', comments=comments)
+    if len(stars_count) != 0:
+        star = sum(stars_count) / len(stars_count)
+        star = round(star, 1)
+    else:
+        star = '-'
+    return render_template('politopy.html', comments=comments, stars=star, star_list=all_stars)
 
 
 @app.route('/profile')
 def profile():
     return render_template('profile.html', name=user.name, email=user.email, about=user.about,
-                           pony_run_install=user.pony_run_install, politopy_install=user.politopy_install,
-                           comments_politopy=user.comments_politopy, comments_pony_run=user.comments_pony_run)
+                           comments_politopy=user.comments_politopy, comments_pony_run=user.comments_pony_run,
+                           politopy_star=user.stars_politopy, pony_run_star=user.stars_pony_run)
 
 
 @app.route('/main')
@@ -127,8 +157,10 @@ def comment_page_politopy():
     form = CommentForm()
     conn = sqlite3.connect('db/users.db')
     cursor = conn.cursor()
-    sql_select_query = """UPDATE users SET comments_politopy = ? WHERE email = ?"""
-    cursor.execute(sql_select_query, (form.comments.data, user.email,))
+    sql_select_query_1 = """UPDATE users SET comments_politopy = ? WHERE email = ?"""
+    sql_select_query_2 = """UPDATE users SET stars_politopy = ? WHERE email = ?"""
+    cursor.execute(sql_select_query_1, (form.comments.data, user.email,))
+    cursor.execute(sql_select_query_2, (form.stars.data, user.email,))
     conn.commit()
     conn.close()
     return render_template('comments.html', form=form)
@@ -140,8 +172,10 @@ def comments_pony_run():
     form = CommentForm()
     conn = sqlite3.connect('db/users.db')
     cursor = conn.cursor()
-    sql_select_query = """UPDATE users SET comments_pony_run = ? WHERE email = ?"""
-    cursor.execute(sql_select_query, (form.comments.data, user.email,))
+    sql_select_query_1 = """UPDATE users SET comments_pony_run = ? WHERE email = ?"""
+    sql_select_query_2 = """UPDATE users SET stars_pony_run = ? WHERE email = ?"""
+    cursor.execute(sql_select_query_1, (form.comments.data, user.email,))
+    cursor.execute(sql_select_query_2, (form.stars.data, user.email,))
     conn.commit()
     conn.close()
     return render_template('comments.html', form=form)
