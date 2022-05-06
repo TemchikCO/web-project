@@ -53,10 +53,10 @@
         <a title="profile" href="pony_run"><h3>Pony Run</h3></a>
       </div>
     </div>
-    <h2 style="margin-left: 10%;">Комментарии по игре:</h2>
+    <h2 style="margin-left: 10%;">Комментарии по игре:&emsp;&emsp;&emsp;Средняя оценка: {{ stars }}/10</h2>
       {% for i in comments%}
       {% if i[1] %}
-        <h3 style="margin-left: 15%; color: white;">{{ i[0] }}:{{ i[1] }}</h3>
+        <h3 style="margin-left: 15%; color: white;">{{ i[0] }}:{{ i[1] }} <br> оценка:{{ star_list[comments.index(i)] }}</h3>
       {% endif %}
       {% endfor %}
   </div>

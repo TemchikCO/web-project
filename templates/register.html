@@ -49,6 +49,8 @@
             </p>
         {% endfor %}
     </p>
+    <p style="margin-left: 20%;">{{ form.confirm.label }}<br>
+        {{ form.confirm(class="form-control") }}<br></p>
     <p style="margin-left: 20%;">{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
 </form>

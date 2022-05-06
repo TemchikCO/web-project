@@ -12,8 +12,9 @@
                 {{ error }}
             </p>
         {% endfor %}
-    </p>
+     Ваша оценка игры? 0-10<br>{{ form.stars(min=0, max=10, oninput="updateRangeInput(this)") }} </p>
         <p style="margin-left: 20%;" ><a href="main">{{ form.submit(type="submit", class="btn btn-primary", onclick="alert('Вы оставили комментарий')") }}</a></p>
+        <p></p>
         <div>{{ message }}</div>
     </form>
 {% endblock %}
