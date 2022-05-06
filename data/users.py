@@ -16,7 +16,7 @@ class User(SqlAlchemyBase, SerializerMixin, UserMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    name = sqlalchemy.Column(sqlalchemy.String, unique=True, nullable=True)
     about = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String,
                               index=True, unique=True, nullable=True)
@@ -27,3 +27,5 @@ class User(SqlAlchemyBase, SerializerMixin, UserMixin):
                                          nullable=True, default=0)
     comments_politopy = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     comments_pony_run = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    stars_politopy = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    stars_pony_run = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
